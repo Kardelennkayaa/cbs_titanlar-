@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 33%;
+  margin-bottom: 14px;
+
+}
+
+.card {
+  box-shadow: 5px 10px 10px 5px rgba(0, 0, 0, 0.2);
+  margin: 8px;
+}
+
+.about-section {
+  padding: 20px;
+  text-align: center;
+  background-color: rgb(3, 77, 11);
+  color: white;
+}
+h4 {
+    font-size: 19px;
+    line-height: 1.375em;
+    color: #303030;
+    font-weight: 400;
+    margin-bottom: 30px;
+  } 
+
+
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+</style>
+</head>
+<body>
+
+
+<div class="about-section">
+  <h1><b>Minibus Routes</b></h1>
+</div>
+
+
+<h2 style="text-align:center">About Us</h2>
+<h4>The purpose of establishing this web page is to provide an interface page for those who want to access route and various attribute data related to minibus routes. Thus, the user will have the opportunity to examine the location information of the minibus routes on the map and can reach the route name and departure time of the relevant minibus. In addition, a web page with route identification and deletion possibilities for users approved by the system has been designed and an up-to-date and sustainable information screen has been created.  </h4><br>
+<p></p>
+</div>
+<div class="row" >
+<div class="column">
+<img src="https://raw.githubusercontent.com/Kardelennkayaa/display_location/master/group_pictures/minibus_popup.png" alt="Avatar"  style="height:275px;width:300px;border-radius:40%; box-shadow: 5px 10px 10px 5px rgba(0, 0, 0, 0.2);border: 3px solid rgb(240, 11, 152);">
+</div>
+<div class="column" >
+    <h4>Attributes to be presented for minibus routes on the map: <i><li> Locations of the routes </li> <li> Route Name</li><li> Departure Time</li></i></h4>
+    </div>
+<div class="column">
+<img src="https://raw.githubusercontent.com/Kardelennkayaa/display_location/master/group_pictures/guzergah_minibus.png" alt="Avatar" align="right"  style="height:275px;width:300px;border-radius:40%; box-shadow: 5px 10px 10px 5px rgba(0, 0, 0, 0.2);border: 3px solid rgb(240, 11, 152);">
+</div>
+</div>
+
+
+<h4>On the page of adding the route information of the minibus lines, four locations can be determined on the map and transferred to a destination database between the relevant locations. When it is desired to delete the route information, all route names can be listed and deleted from the desired route database via the "Delete Route" button.</h4><br>
+
+
+<h2 style="text-align:center"><i>Our Team</i></h2>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/Kardelennkayaa/display_location/master/group_pictures/kardelen.jpg" alt="kardelen" style="width:100%;height:631px;">
+      <div class="container">
+        <h2><i>KARDELEN KAYA</i></h2>
+        <p class="title">Hacettepe University Department of Geomatics Engineering</p>
+        <p>Contact:</p>
+        <p>kfykardelenkaya@hotmail.com</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="column">
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/Kardelennkayaa/display_location/master/group_pictures/arda.jpg" alt="arda" style="width:100%; height:631px ;">
+      <div class="container">
+        <h2><i>ALİ ARDA TERCAN</i></h2>
+        <p class="title">Hacettepe University Department of Geomatics Engineering</p>
+        <p>Contact:</p>
+        <p>ardatercan94@gmail.com</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="column">
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/Kardelennkayaa/display_location/master/group_pictures/berkan.jpg" alt="berkan" style="width:100%; height:631px;">
+      <div class="container">
+        <h2><i>BERKAN MURATOĞLU</i></h2>
+        <p class="title">Hacettepe University Department of Geomatics Engineering</p>
+        <p>Contact:</p>
+        <p>mrtglberkan@gmail.com</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

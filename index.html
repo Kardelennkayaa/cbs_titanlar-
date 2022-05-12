@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Openlayers css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
+    <!-- Custom css -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <!-- Openlayers JS  -->
+        <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
+        <style>
+        .container-fluid {
+        box-shadow: 5px 3px 2px 2px gray;
+        width: 100%;
+        height: 12%;
+        top:0rem;
+        right:0rem;
+        position:fixed;
+        background-color: rgb(3, 77, 11);
+        }
+
+        .container-fluid li{
+        left: 10%;
+        height:12%;
+        top:0rem;
+        position:relative;
+        }
+        #user_alert{
+          margin: auto;
+          width: 280px;
+          position: fixed;
+          box-shadow: 1px 1px 3px black;
+        }
+        #dropdown{
+        left:38%;
+        width:30%;
+        top:1.47rem;
+        position:fixed;
+        outline: 0;
+        }
+        
+        #tools {
+        left:75%;
+        width:30%;
+        height: 20%;
+        top:2rem;
+        position:fixed;
+        color: white;
+        }
+      </style>
+      <script>
+        $(window).on('load', function() {
+          $('#user_panel').modal('show');
+        });
+        var allData 
+        function ajax_request(){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function(){
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                allData = JSON.parse(xmlhttp.responseText);
+                creatingGeojson(allData)
+            }
+        }
+        xmlhttp.open('GET','data.php',true);
+        xmlhttp.send();
+      }
+      function check_user(){
+        var user_name = document.getElementById('defaultForm-email').value;
+        var password = document.getElementById('defaultForm-pass').value;
+        if (user_name=="Kardelen Kaya" && password=="21733141") {
+          $('#user_panel').modal('hide');
+        }
+        else if (user_name=="Ali Arda Tercan" && password=="21733304"){
+          $('#user_panel').modal('hide');
+        }
+        else if (user_name=="Berkan Muratoğlu" && password=="21733174") {
+          $('#user_panel').modal('hide');
+        }
+        else if (user_name=="Berk Anbaroğlu" && password=="11223344") {
+          $('#user_panel').modal('hide');
+        }
+        else{
+          document.getElementById('user_alert').style.display = 'block';
+          setTimeout(function(){document.getElementById('user_alert').style.display = 'none'}, 1700);
+        };
+      };
+      /*
+        function start(){
+          open_form();
+          ajax_request();
+        }
+        */
+    </script>
+<title>Minibus Routes</title>
+</head>
+<body onload="ajax_request()">
+    <!-- Container -->
+    <div class="Container">
+        <!-- Map -->
+        <div class="map" id="mymap" style="width: 100%; height: 100%; position:fixed" ></div>
+        <div id="msg"></div>
+    </div>
+    <div class="modal fade" id="user_panel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">User Login</h4>
+          </button>
+        </div>
+        <div class="modal-body mx-3">
+          <div class="md-form mb-5">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <label data-error="wrong" data-success="right" for="defaultForm-email">User Name</label>
+            <input type="email" id="defaultForm-email" class="form-control validate">
+          </div>
+
+          <div class="md-form mb-4">
+            <i class="fas fa-lock prefix grey-text"></i>
+            <label data-error="wrong" data-success="right" for="defaultForm-pass">Password</label>
+            <input type="password" id="defaultForm-pass" class="form-control validate">
+          </div>
+
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <div class='alert alert-danger' style='display:none' id='user_alert'>
+            Invalid user name or password!
+          </div>
+          <button type="button" class="btn btn-dark" onclick="check_user()">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+      <a class="navbar-brand" href="#"style="color: white;"><b>Minibus Routes</b><br>Route Add Page</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#" onClick="window.location.reload();" style="color: white;">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " onclick="startDrawing()" style="color: white;">Add Station</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="startDrawing_route()" style="color: white;">Add New Route</a>
+            </li>
+            <div id="dropdown" class="dropdown">
+              <button class="btn btn-shadow-none dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;background-color: rgb(3, 77, 11);">
+                Delete Route
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li><a class="dropdown-item" href="#">Route Name</a></li>
+                  <select id="location_options">
+                  </select><br>
+                  <br><input class="btn btn-dark" type="submit" value="Submit" onclick="delete_path()">
+              </div>
+              </div>
+              <li class="nav-item">
+                <a class="nav-link " href="./about.html" style="color: white;">About Us</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+      </nav>
+      <span id="status">&nbsp;</span>
+  <div class="modal fade" id="pointadding" tabindex="-1" role="dialog" aria-labelledby="pointaddingLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="pointaddingLabel">New Entry</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+              <div class="form-group">
+                <label for="location">Location Name</label>
+                <input type="text" class="form-control" id="location" aria-describedby="emailHelp" placeholder="Enter Name">
+              </div>
+              <div class="form-group">
+                <label for="recorder">Recorder Name</label>
+                <input type="text" class="form-control" id="recorder" aria-describedby="emailHelp" placeholder="Enter Name">
+              </div>
+              <div class="form-group">
+                <label for="minibus_name">Minibus Name</label>
+                <input type="text" class="form-control" id="minibus_name" aria-describedby="emailHelp" placeholder="Enter Name">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="SaveDatatodb()">Save changes</button>
+              
+              </div>
+            </div>    
+        </div>
+      </div>
+    </div>
+    <div id="tools">
+      <a id="clear" style="margin: 2%;">Clear</a>
+      <a id="download" download="features.json" style="margin: 2%;">Download</a>
+      <a onclick="visualize()" style="margin: 2%;">Visualize Routes and Stations</a>
+    </div>
+  </div>
+<div class="modal fade" id="route_adding" tabindex="-1" role="dialog" aria-labelledby="routeaddingLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="route_addingLabel">New Entry</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <div class="form-group">
+              <label for="location">Route Name</label>
+              <input type="text" class="form-control" id="location_route" aria-describedby="emailHelp" placeholder="Enter Name">
+            </div>
+            <div class="form-group">
+              <label for="recorder">Recorder Name</label>
+              <input type="text" class="form-control" id="recorder_route" aria-describedby="emailHelp" placeholder="Enter Name">
+            </div>
+            <div class="form-group">
+              <label for="minibus_name">Departure Time</label>
+              <input type="text" class="form-control" id="minibus_name_route" aria-describedby="emailHelp" placeholder="Enter Name">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onclick="SaveDatatodb_route()">Save changes</button>
+            
+            </div>
+          </div>    
+      </div>
+    </div>
+  </div>
+    
+</div>
+    <script src="main.js"></script>
+</body>
+</html>
